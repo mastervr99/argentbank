@@ -1,0 +1,18 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 365px;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 152px;
+        height: 152px;
+        border: 10px solid #00bc77;
+        border-radius: 90px;
+    }
+
+    p {
+        text-align: center;
+    }
+}
