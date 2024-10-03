@@ -1,0 +1,29 @@
+.banner {
+    position: relative;
+    display: flex;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-position: 50% 35%;
+    background-size: cover;
+
+    .banner-text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        right: 80px;
+        top: 80px;
+        background-color: white;
+        padding: 10px 100px 20px 40px;
+
+        .first-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .second-text {
+            font-size: 1.2rem;
+        }
+    }
+
+}
+
