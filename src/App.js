@@ -13,8 +13,8 @@ function App() {
         <div className='app_main'>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/sign-in" element={<Sign_In />} />
-            <Route path="/user/:userId" element={<User />} />
+            <Route path="/login" element={<Sign_In />} />
+            <Route path="/profile" element={<User />} />
           </Routes>
         </div>
       </Router>
