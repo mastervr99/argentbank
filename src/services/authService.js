@@ -1,3 +1,29 @@
+export function storeToken(token, rememberMe) {
+    if (rememberMe) {
+      localStorage.setItem('token', token);
+    } else {
+      sessionStorage.setItem('token', token);
+    }
+}
+  
+export function getToken() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+}
+
+export function removeToken() {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+}
+
+export function isTokenExpired(token) {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp < Date.now() / 1000;
+    } catch (e) {
+      return true;
+    }
+}
+
 export async function login(loginData) {
     try {
         const response = await fetch('http://localhost:3001/api/v1/user/login', {
@@ -9,8 +35,12 @@ export async function login(loginData) {
         });
 
         if (!response.ok) {
-            const error_message = "Notre service est actuellement indisponible. Nous vous invitons à réessayer ultérieurement. Merci de votre compréhension.";
-            return { error: error_message };
+            const errorData = await response.json();
+            const errorMessage = errorData.message || "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
+            if (response.status === 400) {
+                throw new Error(errorMessage);
+            }
+            return { error: errorMessage };
         }
 
         const data = await response.json();

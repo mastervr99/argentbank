@@ -1,22 +1,73 @@
 import './user.scss'
+import React, { useState } from 'react';
 import Transaction from '../../components/transaction/transaction'
 import Footer from '../../layout/footer/footer'
-import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch  } from 'react-redux';
+import { updateUserProfile } from '../../services/userService';
+import { profileSuccess } from '../../pages/user/profileSlice';
 
 function User(){
-    const location = useLocation();
-    const { userProfile } = location.state || {};
+    const userProfile = useSelector((state) => state.profile.userProfile);
+    const dispatch = useDispatch();
+    const [isEditing, setIsEditing] = useState(false);
+    const [firstname, setFirstname] = useState(userProfile.firstname);
+    const [lastname, setLastname] = useState(userProfile.lastname);
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+
+
+    const handleCancelClick = () => {
+        setIsEditing(false);
+        setFirstname(userProfile.firstname);
+        setLastname(userProfile.lastname);
+    };
     
+    const handleSaveClick = async () => {
+        const updatedProfile = { ...userProfile, firstname, lastname };
+        const result = await updateUserProfile(updatedProfile);
+        if (result.success) {
+          dispatch(profileSuccess(updatedProfile));
+          setIsEditing(false);
+        } else {
+          console.error(result.error);
+        }
+    };
+
     if (!userProfile) {
-      return <div>Loading...</div>;
+        return <div>Loading...</div>;
     }
 
     
     return <div className="user_page">
         <main className='main'>
             <div className="header_user_page">
-                <h1>Welcome back<br />{userProfile.firstname} {userProfile.lastname}!</h1>
-                <button className="edit-button">Edit Name</button>
+                <h1>Welcome back<br />{!isEditing && `${userProfile.firstname} ${userProfile.lastname}`}</h1>
+                {isEditing ? (
+                    <div className='edit_form'>
+                        <div className='form_left_side'>
+                            <input
+                                type="text"
+                                value={firstname}
+                                onChange={(e) => setFirstname(e.target.value)}
+                            />
+                            <button onClick={handleSaveClick}>Save</button>
+
+                        </div>
+                        <div className='form_right_side'>
+                            <input
+                                type="text"
+                                value={lastname}
+                                onChange={(e) => setLastname(e.target.value)}
+                            />
+                            <button onClick={handleCancelClick}>Cancel</button>
+                        </div>
+                    </div>
+                ) : (
+                    <button className="edit-button" onClick={handleEditClick}>Edit Name</button>
+                )}
             </div>
             <Transaction />
             <Transaction />

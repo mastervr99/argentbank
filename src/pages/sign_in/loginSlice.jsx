@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getToken, isTokenExpired, removeToken } from '../../services/authService';
 
 const initialState = {
   isLoading: false,
@@ -31,6 +32,16 @@ const loginSlice = createSlice({
     logingOut: (state) => {
       state.isAuth = false;
       state.userProfile = {};
+      removeToken();
+    },
+    checkAuth: (state) => {
+      const token = getToken();
+      if (token && !isTokenExpired(token)) {
+        state.isAuth = true;
+      } else {
+        state.isAuth = false;
+        removeToken();
+      }
     },
   },
 });
@@ -43,6 +54,7 @@ export const {
   logingError,
   logingOut,
   logingRemember,
+  checkAuth,
 } = actions;
 
 export default reducer;
