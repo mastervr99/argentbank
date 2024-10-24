@@ -8,6 +8,7 @@ export function storeToken(token, rememberMe) {
   
 export function getToken() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    return token;
 }
 
 export function removeToken() {
@@ -71,4 +72,13 @@ export async function getProfile(token) {
         console.error('Error fetching profile data:', error);
         return { error: "Une erreur s'est produite. Veuillez réessayer ultérieurement." };
     }
+}
+
+export function storeUserProfile(userProfile) {
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+}
+
+export function getUserProfile() {
+    const userProfile = localStorage.getItem('userProfile');
+    return userProfile ? JSON.parse(userProfile) : null;
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector  } from 'react-redux';
 import { useNavigate  } from 'react-router-dom';
 import { logingPending, logingSuccess, logingError, logingRemember  } from '../../pages/sign_in/loginSlice';
-import { login, getProfile, storeToken } from '../../services/authService';
+import { login, getProfile, storeToken, storeUserProfile } from '../../services/authService'; // Importer storeUserProfile
 import { loginModel } from '../../services/models/loginModel';
 import { loginResponseModel } from '../../services/models/loginResponseModel';
 import { userProfileModel } from '../../services/models/userProfileModel';
@@ -41,6 +41,9 @@ function Sign_In_Form() {
 
             if (userProfile) {
                 dispatch(profileSuccess(userProfile));
+                if (rememberMe) {
+                  storeUserProfile(userProfile);
+                }
                 navigate('/profile', { state: { userProfile } });
             } else {
                 console.error("userProfile is undefined");

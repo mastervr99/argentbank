@@ -1,23 +1,36 @@
 import './user.scss'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Transaction from '../../components/transaction/transaction'
 import Footer from '../../layout/footer/footer'
 import { useSelector, useDispatch  } from 'react-redux';
 import { updateUserProfile } from '../../services/userService';
 import { profileSuccess } from '../../pages/user/profileSlice';
+import { checkAuth } from '../../pages/sign_in/loginSlice';
+
 
 function User(){
     const userProfile = useSelector((state) => state.profile.userProfile);
+    const isAuthenticated = useSelector((state) => state.login.isAuth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
-    const [firstname, setFirstname] = useState(userProfile.firstname);
-    const [lastname, setLastname] = useState(userProfile.lastname);
+    const [firstname, setFirstname] = useState(userProfile?.firstname || '');
+    const [lastname, setLastname] = useState(userProfile?.lastname || '');
+
+    useEffect(() => {
+        dispatch(checkAuth());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/login');
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleEditClick = () => {
         setIsEditing(true);
     };
-
-
 
     const handleCancelClick = () => {
         setIsEditing(false);
@@ -44,7 +57,7 @@ function User(){
     return <div className="user_page">
         <main className='main'>
             <div className="header_user_page">
-                <h1>Welcome back<br />{!isEditing && `${userProfile.firstname} ${userProfile.lastname}`}</h1>
+                <h1>Welcome back<br />{!isEditing && `${userProfile.firstname} ${userProfile.lastname} !`}</h1>
                 {isEditing ? (
                     <div className='edit_form'>
                         <div className='form_left_side'>

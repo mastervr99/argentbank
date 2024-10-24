@@ -12,7 +12,7 @@ function Navigation() {
 
     const handleSignOut = () => {
         dispatch(logingOut());
-        navigate('/login');
+        navigate('/');
     };
 
     return (
