@@ -26,30 +26,32 @@ export function isTokenExpired(token) {
 }
 
 export async function login(loginData) {
-    try {
-        const response = await fetch('http://localhost:3001/api/v1/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(loginData),
-        });
+    const response = await fetch('http://localhost:3001/api/v1/user/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            const errorMessage = errorData.message || "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
-            if (response.status === 400) {
-                throw new Error(errorMessage);
+    if (!response.ok) {
+        const errorData = await response.json();
+        console.log("errorData",errorData);
+        let errorMessage = "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
+        if (response.status === 400) {
+            if (errorData.message === "Invalid email or password") {
+                errorMessage = "Identifiant ou mot de passe incorrect.";
+            } else if (errorData.message === "Error: User not found!") {
+                errorMessage = "Utilisateur non trouvé.";
+            } else {
+                errorMessage = errorData.message;
             }
-            return { error: errorMessage };
         }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        return { error: "Une erreur s'est produite. Veuillez réessayer ultérieurement." };
+        throw new Error(errorMessage);
     }
+
+    const data = await response.json();
+    return data;
 }
 
 export async function getProfile(token) {
