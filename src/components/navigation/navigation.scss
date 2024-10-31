@@ -18,11 +18,28 @@
     text-decoration: none;
     margin-right: 0.5rem;
 
+    span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    span:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      background: none;
+      border: none;
+      padding-left: 15px;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    button:hover {
+      text-decoration: underline;
+    }
+
     i {
         padding-right: 5px;
     }
-  }
-  
-  .main-nav-item:hover {
-    text-decoration: underline;
   }
