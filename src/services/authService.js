@@ -39,13 +39,7 @@ export async function login(loginData) {
         console.log("errorData",errorData);
         let errorMessage = "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
         if (response.status === 400) {
-            if (errorData.message === "Invalid email or password") {
-                errorMessage = "Identifiant ou mot de passe incorrect.";
-            } else if (errorData.message === "Error: User not found!") {
-                errorMessage = "Utilisateur non trouvé.";
-            } else {
-                errorMessage = errorData.message;
-            }
+            errorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
         }
         throw new Error(errorMessage);
     }
