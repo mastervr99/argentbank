@@ -4,6 +4,14 @@
     align-items: center;
     padding: 5px 20px;
   }
+
+  .menu-icon { 
+    display: none; cursor: pointer; 
+  } 
+  
+  .menu-links { 
+    display: flex; 
+  }
   
   .main-nav a {
     font-weight: bold;
@@ -42,4 +50,28 @@
     i {
         padding-right: 5px;
     }
+  }
+
+  @media (max-width: 768px) { 
+    .menu-icon { 
+      display: block; 
+    } 
+    
+    .menu-links { 
+      display: none; 
+      width: 100%; 
+      position: absolute;
+      top: 50px;
+      left: 0;
+      background-color: white;
+      z-index: 10;
+    } 
+    
+    .menu-links.open { 
+      display: flex;
+    }
+    
+    .main-nav-item { 
+      margin: 10px 10px; 
+    } 
   }

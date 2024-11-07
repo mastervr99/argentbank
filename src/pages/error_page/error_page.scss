@@ -1,0 +1,66 @@
+.error_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 80px;
+    gap: 40px;
+    margin-bottom: 90px;
+
+    h2 {
+        margin: 0;
+        font-size: 288px;
+        font-weight: 700;
+        color: #42b983;
+    }
+
+    .error_message {
+        color: #42b983;
+        font-weight: 500;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .return_link {
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+        border-bottom: 2px solid black;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+
+/****** Media queries ***********/
+
+@media (max-width: 607px) {
+    .error_page {
+        margin-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+        gap: 80px;
+
+        h2 {
+            font-size: 96px;
+        }
+    
+        .error_message {
+            font-size: 18px;
+            width: 70%; 
+            word-break: break-word;
+        }
+    
+        .return_link {
+            font-size: 14px;
+            
+            p {
+                text-align: center;
+            }
+        }
+    
+    }
+}
