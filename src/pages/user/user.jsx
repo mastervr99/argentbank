@@ -63,7 +63,7 @@ function User(){
                         <div className='form_left_side'>
                             <input
                                 type="text"
-                                value={firstname}
+                                defaultValue={userProfile.firstname}
                                 onChange={(e) => setFirstname(e.target.value)}
                             />
                             <button onClick={handleSaveClick}>Save</button>
@@ -72,7 +72,7 @@ function User(){
                         <div className='form_right_side'>
                             <input
                                 type="text"
-                                value={lastname}
+                                defaultValue={userProfile.lastname}
                                 onChange={(e) => setLastname(e.target.value)}
                             />
                             <button onClick={handleCancelClick}>Cancel</button>
