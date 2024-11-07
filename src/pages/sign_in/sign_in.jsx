@@ -2,7 +2,7 @@ import './sign_in.scss';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Sign_In_Form from '../../components/sign_in_form/sign_in_form';
+import Sign_In_Form from '../../layout/sign_in_form/sign_in_form';
 import Footer from '../../layout/footer/footer';
 import { checkAuth } from '../../pages/sign_in/loginSlice';
 

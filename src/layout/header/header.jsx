@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import Navigation from '../../components/navigation/navigation';
+import Navigation from '../navigation/navigation';
 import './header.scss';
 
 function Header() {

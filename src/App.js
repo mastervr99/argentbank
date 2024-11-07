@@ -5,6 +5,7 @@ import Home from './pages/home/home';
 import Sign_In from './pages/sign_in/sign_in';
 import User from './pages/user/user';
 import Header from './layout/header/header';
+import Error_Page from './pages/error_page/error_page';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkAuth, logingSuccess } from './pages/sign_in/loginSlice';
 import { profileSuccess } from './pages/user/profileSlice';
@@ -31,7 +32,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={isAuthenticated ? <Navigate to="/profile" /> : <Sign_In/>} />
-            <Route path="/profile" element={isAuthenticated ? <User /> : <Navigate to="/login" />} />          
+            <Route path="/profile" element={isAuthenticated ? <User /> : <Navigate to="/login" />} />
+            <Route path="*" element={<Error_Page />} />       
           </Routes>
         </div>
       </Router>
