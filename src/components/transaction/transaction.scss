@@ -49,3 +49,9 @@
     background-color: #00bc77;
     color: #fff;
   }
+
+  @media (max-width: 768px) { 
+    .account {
+      flex-direction: column;
+    }
+  }

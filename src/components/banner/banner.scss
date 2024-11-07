@@ -26,5 +26,17 @@
         }
     }
 
+    
 }
 
+@media (max-width: 768px) {
+    .banner {
+
+        .banner-text {
+            .first-text, .second-text {
+                font-size: 1rem;
+            }
+        }
+        }
+
+    }
